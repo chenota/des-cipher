@@ -53,13 +53,13 @@ uint64_t shiftKey(uint64_t block, size_t round) {
     // Get shift amount
     const uint8_t shiftAmount = SHIFT_SCHEDULE[round % MAX_ROUNDS];
     // Isolate sections c and d
-    uint64_t secC = block & mask;
-    uint64_t secD = block >> HALF_PC1_SIZE;
+    uint64_t right = block & mask;
+    uint64_t left = block >> HALF_PC1_SIZE;
     // Left rotate each section according to schedule amount
     for(size_t i = 0; i < shiftAmount; i++) {
-        secC = ((secC << 1) & (~1)) | (secC >> (HALF_PC1_SIZE - 1));
-        secD = ((secD << 1) & (~1)) | (secD >> (HALF_PC1_SIZE - 1));
+        right = ((right << 1) & (~1UL)) | (right >> (HALF_PC1_SIZE - 1));
+        left = ((left << 1) & (~1UL)) | (left >> (HALF_PC1_SIZE - 1));
     }
     // Return result
-    return secC | (secD << HALF_PC1_SIZE);
+    return (left << HALF_PC1_SIZE) | right;
 }
