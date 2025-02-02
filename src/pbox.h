@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 #define P_TABLE_SIZE 32
 #define E_TABLE_SIZE 48
