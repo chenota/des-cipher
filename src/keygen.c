@@ -47,7 +47,7 @@ uint64_t pc2(uint64_t block) {
     return newBlock;
 }
 
-uint64_t shift_key(uint64_t block, uint8_t round) {
+uint64_t shiftKey(uint64_t block, uint8_t round) {
     // Compute masks to isolate top and bottom halfs of block
     const uint64_t cMask = (1 << HALF_PC1_SIZE) - 1;
     const uint64_t dMask = cMask << HALF_PC1_SIZE;
