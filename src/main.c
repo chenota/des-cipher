@@ -78,7 +78,7 @@ int main(int argc, char *argv[]) {
         convert = decrypt(text, key, 16, arguments.verbose);
     }
     // Print result
-    printf("%lx\n", convert);
+    // printf("%lx\n", convert);
     // Return
     return 0;
 }
