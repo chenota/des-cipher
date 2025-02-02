@@ -11,7 +11,7 @@ static char args_doc[] = "TEXT KEY";
 static struct argp_option options[] = {
     { "encrypt", 'e', 0, 0, "Run in encrypt mode" },
     { "decrypt", 'd', 0, 0, "Run in decrypt mode" },
-    { "verbose", 'v', 0, 0, "Use verbose output" },
+    { "verbose", 'v', 0, 0, "Use verbose output. Include twice to use super-verbose output" },
 };
 
 struct arguments {
@@ -25,7 +25,7 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state) {
     switch (key) {
         case 'e' : arguments->mode = ENCRYPT; break;
         case 'd' : arguments->mode = DECRYPT; break;
-        case 'v' : arguments->verbose = 1; break;
+        case 'v' : arguments->verbose += 1; break;
         case ARGP_KEY_ARG:
             if(state->arg_num >= 2) argp_usage(state);
             arguments->args[state->arg_num] = arg;
@@ -78,7 +78,7 @@ int main(int argc, char *argv[]) {
         convert = decrypt(text, key, 16, arguments.verbose);
     }
     // Print result
-    // printf("%lx\n", convert);
+    printf("%lx\n", convert);
     // Return
     return 0;
 }
