@@ -1,4 +1,4 @@
-#include "pc.h"
+#include "keygen.h"
 
 // Table for pc1
 static const uint8_t PC1_TABLE[PC1_SIZE] = {
