@@ -8,4 +8,4 @@
 
 uint64_t pc1(uint64_t block);
 uint64_t pc2(uint64_t block);
-uint64_t shiftKey(uint64_t block, uint8_t round);
+uint64_t shiftKey(uint64_t block, size_t round);
