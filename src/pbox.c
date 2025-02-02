@@ -18,7 +18,7 @@ static const uint8_t P_TABLE[P_TABLE_SIZE] = {
     {19, 13, 30,  6, 22, 11,  4, 25}
 };
 
-uint64_t expand(uint64_t block) {
+uint32_t expand(uint64_t block) {
     // Create space for new block
     uint64_t newBlock = 0;
     // Re-map bits of original block
@@ -27,7 +27,7 @@ uint64_t expand(uint64_t block) {
     return newBlock;
 }
 
-uint64_t permute(uint64_t block) {
+uint32_t permute(uint32_t block) {
     // Create space for new block
     uint64_t newBlock = 0;
     // Re-map bits of original block

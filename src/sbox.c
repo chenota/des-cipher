@@ -59,3 +59,14 @@ uint8_t substitute(uint8_t block, uint8_t boxIdx) {
     // Return value
     return SBOXES[boxIdx][rowIdx][colIdx];
 }
+
+uint32_t substituteAll(uint64_t block) {
+    // Empty result
+    uint32_t result = 0;
+    // Input each 6-bit section into s-box
+    for(size_t i = 0; i < NUM_SBOXES; i++) {
+        result |= substitute((block >> (6 * i)) & 63, i) << (4 * i);
+    }
+    // Return
+    return result;
+}
