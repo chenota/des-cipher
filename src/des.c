@@ -37,7 +37,7 @@ uint64_t doDES(uint64_t plaintext, uint64_t key, size_t n, char mode, char verbo
     // PC1 key
     key = pc1(key);
     // Verbose print
-    if(verbose > 1) printf("CD[0]  : %014lx\n", key);
+    if(verbose > 1) printf("CD[0]  : %014lx\n\n", key);
     // Generate 16 round keys
     uint64_t roundKeys[16];
     for(size_t i = 0; i < 16; i++) {
@@ -69,7 +69,7 @@ uint64_t doDES(uint64_t plaintext, uint64_t key, size_t n, char mode, char verbo
     // Perform inverse IP
     result = inverseInitialPermutation(result);
     // Verbose print
-    if(verbose == 1) printf("Round: IP-1\n K:\n L: %08lx\n R: %08lx\n", result >> 32, result & 0xFFFFFFFF);
+    if(verbose == 1) printf("Round: IP-1\n K:\n L: %08lx\n R: %08lx\n\n", result >> 32, result & 0xFFFFFFFF);
     // Return as ciphertext
     return result;  
 }
