@@ -22,7 +22,7 @@ uint64_t expand(uint32_t block) {
     // Create space for new block
     uint64_t newBlock = 0;
     // Re-map bits of original block
-    for(size_t i = 0; i < E_TABLE_SIZE; i++) newBlock |= (uint64_t) ((block >> (32 - E_TABLE[i])) & 1) << (E_TABLE_SIZE - (i + 1));
+    for(size_t i = 0; i < E_TABLE_SIZE; i++) newBlock |= ((uint64_t) ((block >> (32 - E_TABLE[i])) & 1)) << (E_TABLE_SIZE - (i + 1));
     // Return new block
     return newBlock;
 }
@@ -31,7 +31,7 @@ uint32_t permute(uint32_t block) {
     // Create space for new block
     uint64_t newBlock = 0;
     // Re-map bits of original block
-    for(size_t i = 0; i < P_TABLE_SIZE; i++) newBlock |= ((block >> (32 - P_TABLE[i])) & 1) << 32 - (i + 1);
+    for(size_t i = 0; i < P_TABLE_SIZE; i++) newBlock |= ((block >> (P_TABLE_SIZE - P_TABLE[i])) & 1) << (P_TABLE_SIZE - (i + 1));
     // Return new block
     return newBlock;
 }

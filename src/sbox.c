@@ -53,7 +53,7 @@ static const uint8_t SBOXES[NUM_SBOXES][BOX_ROWS][BOX_COLS] = {
 
 uint8_t substituteOne(uint8_t block, uint8_t boxIdx) {
     // Get row index of block (first and last bits)
-    uint8_t rowIdx = (block & 1) | ((block >> 5) << 1);
+    uint8_t rowIdx = (block & 1) | ((block >> 4) & 2);
     // Get column index of block (middle four bits)
     uint8_t colIdx = (block >> 1) & 15;
     // Return value
