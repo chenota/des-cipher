@@ -5,4 +5,5 @@
 #define BOX_COLS 16
 #define NUM_SBOXES 8 
 
-uint64_t substitute(uint64_t block, uint8_t boxIdx);
+uint8_t substitute(uint8_t block, uint8_t boxIdx);
+uint32_t substituteAll(uint64_t block);
