@@ -25,7 +25,14 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state) {
     switch (key) {
         case 'e' : arguments->mode = ENCRYPT; break;
         case 'd' : arguments->mode = DECRYPT; break;
-        case 'v' : arguments->verbose += 1; break;
+        case 'v' : 
+            if(arguments->verbose < 2) { 
+                arguments->verbose += 1; 
+            } else { 
+                argp_failure(state, 1, 0, "Cannot include -v more than twice. See --help for more information");
+                return ARGP_ERR_UNKNOWN;
+            } 
+            break;
         case ARGP_KEY_ARG:
             if(state->arg_num >= 2) argp_usage(state);
             arguments->args[state->arg_num] = arg;
