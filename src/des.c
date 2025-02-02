@@ -31,6 +31,8 @@ uint64_t encrypt(uint64_t plaintext, uint64_t key, size_t n, char verbose) {
         key = pc2(shiftKey(key, i));
         // Perform single round
         result = desRound(result, key);
+        // Verbose print
+        if(verbose) printf("Round: %ld\n K: %016lx\n L: %08lx\n R: %08lx\n", i + 1, key, result >> 32, result & 0xFFFFFFFF);
     }
     // Perform inverse IP
     result = inverseInitialPermutation(result);
@@ -57,6 +59,8 @@ uint64_t decrypt(uint64_t ciphertext, uint64_t key, size_t n, char verbose) {
     for(size_t i = 0; i < n; i++) {
         // Perform single round
         result = desRound(result, subkeys[15 - (i % 16)]);
+        // Verbose print
+        if(verbose) printf("Round: %ld\n K: %016lx\n L: %08lx\n R: %08lx\n", i + 1, subkeys[15 - (i % 16)], result >> 32, result & 0xFFFFFFFF);
     }
     // Perform IP
     result = initialPermutation(result);
