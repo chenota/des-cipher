@@ -6,4 +6,4 @@ $(OBJDIR)/%.o : $(SRCDIR)/%.c
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c -o $@ $<
 
 des.out: $(OBJDIR)/main.o $(OBJDIR)/des.o $(OBJDIR)/keygen.o $(OBJDIR)/pbox.o $(OBJDIR)/sbox.o
-	$(CC) -o des.out $<
+	$(CC) $(CPPFLAGS) $(CFLAGS) -o des.out $<
