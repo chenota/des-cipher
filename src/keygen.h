@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 #define PC1_SIZE 56
-#define HALF_PC1_SIZE (PC1_SIZE / 2)
+#define HALF_PC1_SIZE 28
 #define PC2_SIZE 48
 #define MAX_ROUNDS 16
 

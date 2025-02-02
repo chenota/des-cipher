@@ -49,13 +49,12 @@ uint64_t pc2(uint64_t block) {
 
 uint64_t shiftKey(uint64_t block, size_t round) {
     // Compute masks to isolate top and bottom halfs of block
-    const uint64_t cMask = (1 << HALF_PC1_SIZE) - 1;
-    const uint64_t dMask = cMask << HALF_PC1_SIZE;
+    const uint64_t mask = (1 << HALF_PC1_SIZE) - 1;
     // Get shift amount
     const uint8_t shiftAmount = SHIFT_SCHEDULE[round % MAX_ROUNDS];
     // Isolate sections c and d
-    uint64_t secC = block & cMask;
-    uint64_t secD = (block & dMask) >> HALF_PC1_SIZE;
+    uint64_t secC = block & mask;
+    uint64_t secD = block >> HALF_PC1_SIZE;
     // Left rotate each section according to schedule amount
     for(size_t i = 0; i < shiftAmount; i++) {
         secC = ((secC << 1) & (~1)) | (secC >> (HALF_PC1_SIZE - 1));
