@@ -65,5 +65,16 @@ int main(int argc, char *argv[]) {
     // Fill blocks
     text = strtol(inputText, NULL, 16);
     key = strtol(keyText, NULL, 16);
+    // Space for converted text
+    uint64_t convert;
+    // Encrypt/decrypt
+    if(arguments.mode == ENCRYPT) {
+        convert = encrypt(text, key, 16);
+    } else {
+        convert = decrypt(text, key, 16);
+    }
+    // Print result
+    printf("%lx\n", convert);
+    // Return
     return 0;
 }
