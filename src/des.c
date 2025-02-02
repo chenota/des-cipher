@@ -27,12 +27,12 @@ uint64_t encrypt(uint64_t plaintext, uint64_t key, size_t n, char verbose) {
     key = pc1(key);
     // Perform n rounds of des
     for(size_t i = 0; i < n; i++) {
-        // Perform shift and pc2 on key
-        key = pc2(shiftKey(key, i));
+        // Perform shift on key
+        key = shiftKey(key, i);
         // Perform single round
-        result = desRound(result, key);
+        result = desRound(result, pc2(key));
         // Verbose print
-        if(verbose) printf("Round: %ld\n K: %016lx\n L: %08lx\n R: %08lx\n", i + 1, key, result >> 32, result & 0xFFFFFFFF);
+        if(verbose) printf("Round: %ld\n K: %016lx\n L: %08lx\n R: %08lx\n", i + 1, pc2(key), result >> 32, result & 0xFFFFFFFF);
     }
     // Perform inverse IP
     result = inverseInitialPermutation(result);
@@ -49,7 +49,7 @@ uint64_t decrypt(uint64_t ciphertext, uint64_t key, size_t n, char verbose) {
     uint64_t subkeys[16];
     for(size_t i = 0; i < 16; i++) { 
         // Shift key
-        key = pc2(shiftKey(key, i));
+        key = shiftKey(key, i);
         // Save key
         subkeys[i] = key; 
     }
@@ -60,9 +60,9 @@ uint64_t decrypt(uint64_t ciphertext, uint64_t key, size_t n, char verbose) {
     // Perform n rounds of DES, count through keys backwards
     for(size_t i = 0; i < n; i++) {
         // Perform single round
-        result = desRound(result, subkeys[15 - (i % 16)]);
+        result = desRound(result, pc2(subkeys[15 - (i % 16)]));
         // Verbose print
-        if(verbose) printf("Round: %ld\n K: %016lx\n L: %08lx\n R: %08lx\n", i + 1, subkeys[15 - (i % 16)], result >> 32, result & 0xFFFFFFFF);
+        if(verbose) printf("Round: %ld\n K: %016lx\n L: %08lx\n R: %08lx\n", i + 1, pc2(subkeys[15 - (i % 16)]), result >> 32, result & 0xFFFFFFFF);
     }
     // Perform IP
     result = initialPermutation(result);
