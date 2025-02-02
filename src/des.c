@@ -1,6 +1,6 @@
 #include "des.h"
 
-uint64_t round(uint64_t block, uint64_t key) {
+uint64_t desRound(uint64_t block, uint64_t key) {
     // Split left and right halves
     uint32_t right = block & 0xFFFFFFFF;
     uint32_t left = block >> 32;
@@ -28,7 +28,7 @@ uint64_t encrypt(uint64_t plaintext, uint64_t key, size_t n) {
         // Perform shift and pc2 on key
         key = pc2(shiftKey(key, i));
         // Perform single round
-        result = round(result, key);
+        result = desRound(result, key);
     }
     // Perform inverse IP
     result = inverseInitialPermutation(result);
@@ -52,7 +52,7 @@ uint64_t decrypt(uint64_t ciphertext, uint64_t key, size_t n) {
     // Perform n rounds of DES, count through keys backwards
     for(size_t i = 0; i < n; i++) {
         // Perform single round
-        result = round(result, subkeys[15 - (i % 16)]);
+        result = desRound(result, subkeys[15 - (i % 16)]);
     }
     // Perform IP
     result = initialPermutation(result);
