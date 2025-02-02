@@ -7,7 +7,7 @@ uint64_t desRound(uint64_t block, uint64_t key) {
     // Put right though e-table
     uint64_t right_e = expand(right);
     // XOR right with the key
-    uint64_t right_k = right ^ key;
+    uint64_t right_k = right_e ^ key;
     // Put right through s-box
     uint32_t right_s = substitute(right_k);
     // Permute right

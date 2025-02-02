@@ -65,7 +65,7 @@ uint32_t substitute(uint64_t block) {
     uint32_t result = 0;
     // Input each 6-bit section into s-box
     for(size_t i = 0; i < NUM_SBOXES; i++) {
-        result |= substituteOne((block >> (6 * i)) & 63, i) << (4 * i);
+        result |= substituteOne((block >> (48 - (6 * (i + 1)))) & 63, i) << (32 - (4 * (i + 1)));
     }
     // Return
     return result;
