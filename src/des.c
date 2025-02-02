@@ -18,9 +18,11 @@ uint64_t desRound(uint64_t block, uint64_t key) {
     return ((uint64_t) right) << 32 | (uint64_t) right_l;
 }
 
-uint64_t encrypt(uint64_t plaintext, uint64_t key, size_t n) {
+uint64_t encrypt(uint64_t plaintext, uint64_t key, size_t n, char verbose) {
     // Start out w/ initial permutation
     uint64_t result = initialPermutation(plaintext);
+    // Verbose print
+    if(verbose) printf("Round: IP\n K:\n L: %08lx\n R: %08lx\n", result >> 32, result & 31);
     // PC1 key
     key = pc1(key);
     // Perform n rounds of des
@@ -36,7 +38,7 @@ uint64_t encrypt(uint64_t plaintext, uint64_t key, size_t n) {
     return result;  
 }
 
-uint64_t decrypt(uint64_t ciphertext, uint64_t key, size_t n) {
+uint64_t decrypt(uint64_t ciphertext, uint64_t key, size_t n, char verbose) {
     // PC1 key
     key = pc1(key);
     // Generate 16 round sub-keys
@@ -49,6 +51,8 @@ uint64_t decrypt(uint64_t ciphertext, uint64_t key, size_t n) {
     }
     // Start out w/ inverse initial permutation
     uint64_t result = inverseInitialPermutation(ciphertext);
+    // Verbose print
+    if(verbose) printf("Round: IP-1\n K:\n L: %08lx\n R: %08lx\n", result >> 32, result & 31);
     // Perform n rounds of DES, count through keys backwards
     for(size_t i = 0; i < n; i++) {
         // Perform single round
