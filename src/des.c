@@ -33,7 +33,7 @@ uint64_t doDES(uint64_t plaintext, uint64_t key, size_t n, char mode, char verbo
     uint64_t result = initialPermutation(plaintext);
     // Verbose print
     if(verbose == 1) printf("Round: IP\n K:\n L: %08lx\n R: %08lx\n", result >> 32, result & 0xFFFFFFFF);
-    if(verbose > 1) printf("Input  : %lx\nKey    : %lx\n\n", plaintext, key);
+    if(verbose > 1) printf("Input  : %016lx\nKey    : %016lx\n\n", plaintext, key);
     // PC1 key
     key = pc1(key);
     // Verbose print

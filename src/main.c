@@ -67,8 +67,8 @@ int main(int argc, char *argv[]) {
     uint64_t text = 0;
     uint64_t key = 0;
     // Fill blocks
-    text = strtol(inputText, NULL, 16);
-    key = strtol(keyText, NULL, 16);
+    text = strtoull(inputText, NULL, 16);
+    key = strtoull(keyText, NULL, 16);
     // Encrypt/decrypt
     uint64_t result = doDES(text, key, 16, arguments.mode, arguments.verbose);
     // Print result
