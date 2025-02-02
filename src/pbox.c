@@ -64,7 +64,7 @@ uint64_t initialPermutation(uint64_t block) {
     // Create space for new block
     uint64_t newBlock = 0;
     // Re-map bits of original block
-    for(size_t i = 0; i < 64; i++) newBlock |= ((block >> (IP_TABLE[i] - 1)) & 1) << i;
+    for(size_t i = 0; i < 64; i++) newBlock |= ((block >> (64 - IP_TABLE[i])) & 1) << 64 - (i + 1);
     // Return new block
     return newBlock;
 }
@@ -73,7 +73,7 @@ uint64_t inverseInitialPermutation(uint64_t block) {
     // Create space for new block
     uint64_t newBlock = 0;
     // Re-map bits of original block
-    for(size_t i = 0; i < 64; i++) newBlock |= ((block >> (INV_IP_TABLE[i] - 1)) & 1) << i;
+    for(size_t i = 0; i < 64; i++) newBlock |= ((block >> (64 - INV_IP_TABLE[i])) & 1) << 64 - (i + 1);
     // Return new block
     return newBlock;
 }
