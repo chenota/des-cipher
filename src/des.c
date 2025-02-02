@@ -34,6 +34,8 @@ uint64_t encrypt(uint64_t plaintext, uint64_t key, size_t n, char verbose) {
         // Verbose print
         if(verbose) printf("Round: %ld\n K: %016lx\n L: %08lx\n R: %08lx\n", i + 1, pc2(key), result >> 32, result & 0xFFFFFFFF);
     }
+    // Reverse the left and right
+    result = (result >> 32) | (result << 32);
     // Perform inverse IP
     result = inverseInitialPermutation(result);
     // Verbose print
@@ -64,6 +66,8 @@ uint64_t decrypt(uint64_t ciphertext, uint64_t key, size_t n, char verbose) {
         // Verbose print
         if(verbose) printf("Round: %ld\n K: %016lx\n L: %08lx\n R: %08lx\n", i + 1, pc2(subkeys[15 - (i % 16)]), result >> 32, result & 0xFFFFFFFF);
     }
+    // Reverse the left and right
+    result = (result >> 32) | (result << 32);
     // Perform IP
     result = initialPermutation(result);
     // Verbose print
