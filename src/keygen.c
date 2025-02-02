@@ -33,18 +33,18 @@ uint64_t pc1(uint64_t block) {
     // Create space for new block
     uint64_t newBlock = 0;
     // Re-map bits of original block
-    for(size_t i = 0; i < PC1_SIZE; i++) newBlock |= ((block >> (PC1_TABLE[i] - 1)) & 1) << i;
+    for(size_t i = 0; i < PC1_SIZE; i++) newBlock |= ((block >> (64 - PC1_TABLE[i])) & 1) << 64 - (i + 1);
     // Return new block
-    return newBlock;
+    return newBlock >> (64 - PC1_SIZE);
 }
 
 uint64_t pc2(uint64_t block) {
     // Create space for new block
     uint64_t newBlock = 0;
     // Re-map bits of original block
-    for(size_t i = 0; i < PC2_SIZE; i++) newBlock |= ((block >> (PC2_TABLE[i] - 1)) & 1) << i;
+    for(size_t i = 0; i < PC2_SIZE; i++) newBlock |= ((block >> (PC1_SIZE - PC2_TABLE[i])) & 1) << PC1_SIZE - (i + 1);
     // Return new block
-    return newBlock;
+    return newBlock >> (PC1_SIZE - PC2_SIZE);
 }
 
 uint64_t shiftKey(uint64_t block, size_t round) {

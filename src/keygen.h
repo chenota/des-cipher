@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 #define PC1_SIZE 56
 #define HALF_PC1_SIZE 28
