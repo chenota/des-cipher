@@ -72,7 +72,7 @@ int main(int argc, char *argv[]) {
     // Encrypt/decrypt
     uint64_t result = doDES(text, key, 16, arguments.mode, arguments.verbose);
     // Print result
-    printf("%lx\n", result);
+    printf("%016lx\n", result);
     // Return
     return 0;
 }
