@@ -9,7 +9,7 @@ uint64_t round(uint64_t block, uint64_t key) {
     // XOR right with the key
     uint64_t right_k = right ^ key;
     // Put right through s-box
-    uint32_t right_s = substituteAll(right_k);
+    uint32_t right_s = substitute(right_k);
     // Permute right
     uint32_t right_p = permute(right_s);
     // XOR right with the left

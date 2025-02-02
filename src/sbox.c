@@ -51,7 +51,7 @@ static const uint8_t SBOXES[NUM_SBOXES][BOX_ROWS][BOX_COLS] = {
     }
 };
 
-uint8_t substitute(uint8_t block, uint8_t boxIdx) {
+uint8_t substituteOne(uint8_t block, uint8_t boxIdx) {
     // Get row index of block (first and last bits)
     uint8_t rowIdx = (block & 1) | ((block >> 5) << 1);
     // Get column index of block (middle four bits)
@@ -60,12 +60,12 @@ uint8_t substitute(uint8_t block, uint8_t boxIdx) {
     return SBOXES[boxIdx][rowIdx][colIdx];
 }
 
-uint32_t substituteAll(uint64_t block) {
+uint32_t substitute(uint64_t block) {
     // Empty result
     uint32_t result = 0;
     // Input each 6-bit section into s-box
     for(size_t i = 0; i < NUM_SBOXES; i++) {
-        result |= substitute((block >> (6 * i)) & 63, i) << (4 * i);
+        result |= substituteOne((block >> (6 * i)) & 63, i) << (4 * i);
     }
     // Return
     return result;
