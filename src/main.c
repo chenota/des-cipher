@@ -1,4 +1,6 @@
 #include <argp.h>
+#include <string.h>
+#include <stdio.h>
 #include "des.h"
 
 const char *argp_program_version = "des 1.0.0";
@@ -31,11 +33,11 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state) {
             break;
         case ARGP_KEY_END :
             if(arguments->mode == NONE) {
-                argp_failure(state, 1, 0, "Required -e or -d. See --help for more information.");
+                argp_failure(state, 1, 0, "Required -e or -d. See --help for more information");
                 return ARGP_ERR_UNKNOWN;
             }
             if(state->arg_num < 2) {
-                argp_failure(state, 1, 0, "Required text and key. See --help for more information.");
+                argp_failure(state, 1, 0, "Required text and key. See --help for more information");
             }
             break;
         default : return ARGP_ERR_UNKNOWN;
@@ -51,5 +53,24 @@ int main(int argc, char *argv[]) {
     arguments.mode = NONE;
     arguments.input = ASCII;
     argp_parse(&argp, argc, argv, 0, 0, &arguments);
+    // Get pointers to text and key
+    char *text = arguments.args[0];
+    char *key = arguments.args[1];
+    // Get length of text and key (should be no more than 16 bits, so restrict to a couple over that)
+    size_t textLen = strnlen(text, 18);
+    size_t keyLen = strnlen(key, 18);
+    // Validate length of text and key
+    switch(arguments.input) {
+        case ASCII:
+            if(textLen > 8 || keyLen > 8) {
+                perror("Text and Key length must be no more than eight characters");
+                exit(1);
+            }
+        case HEX:
+            if(textLen > 16 || keyLen > 16) {
+                perror("Text and Key length must be no more than sixteen characters");
+                exit(1);
+            }
+    }
     return 0;
 }
